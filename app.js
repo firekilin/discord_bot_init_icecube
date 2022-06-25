@@ -10,6 +10,13 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), (req, res) => {
   const message = req.body;
   if (message.type === InteractionType.APPLICATION_COMMAND) {
+    if (data.name === 'test') {
+      // Send a message as response
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: { content: 'A wild message appeared' },
+      });
+    }
     res.send({
       type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
       data: {
@@ -17,6 +24,16 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), (req, res
       },
     });
   }
+  if (name === 'test') {
+    // Send a message into the channel where command was triggered from
+    return res.send({
+    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+    data: {
+        // Fetches a random emoji to send from a helper function
+        content: 'hello world ' + getRandomEmoji(),
+    },
+    });
+}
 });
 
 async function createCommand() {

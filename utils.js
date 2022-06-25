@@ -30,11 +30,12 @@ export async function DiscordRequest(endpoint, options) {
     headers: {
       Authorization: `Bot ${process.env.DISCORD_TOKEN}`,
       'Content-Type': 'application/json; charset=UTF-8',
+      'User-Agent': 'DiscordBot (https://github.com/discord/discord-example-app, 1.0.0)',
     },
     ...options
   });
   console.log("res:"+JSON.stringify(res.json()));
-  // throw API errors
+    // throw API errors
   if (!res.ok) {
     const data = await res.json();
     console.log(res.status);

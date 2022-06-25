@@ -9,8 +9,10 @@ import {
 // Create and configure express app
 const app = express();
 app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
-
-app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), (req, res) => {
+/**
+ * Interactions endpoint URL where Discord will send HTTP requests
+ */
+ app.post('/interactions', async function (req, res) {
   // Interaction type and data
   const { type, id, data } = req.body;
 
@@ -20,6 +22,11 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), (req, res
   if (type === InteractionType.PING) {
     return res.send({ type: InteractionResponseType.PONG });
   }
+
+  /**
+   * Handle slash command requests
+   * See https://discord.com/developers/docs/interactions/application-commands#slash-commands
+   */
   if (type === InteractionType.APPLICATION_COMMAND) {
     const { name } = data;
 
@@ -34,15 +41,13 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), (req, res
         },
       });
     }
+    
   }
+
 });
 
 
 app.listen(9527, () => {
   console.log('Listening on port 9527');
 
-  // Check if guild commands from commands.json are installed (if not, install them)
-  HasGuildCommands(process.env.APP_ID, process.env.GUILD_ID, [
-    TEST_COMMAND
-  ]);
 });

@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import { InteractionType, InteractionResponseType,verifyKeyMiddleware  } from 'discord-interactions';
-import { VerifyDiscordRequest, DiscordRequest } from './utils.js';
+import { VerifyDiscordRequest, getRandomEmoji } from './utils.js';
 import {
   TEST_COMMAND,
   HasGuildCommands
@@ -50,6 +50,6 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 app.listen(9527, () => {
   console.log('Listening on port 9527');
   HasGuildCommands(process.env.APP_ID, process.env.GUILD_ID, [
-    TEST_COMMAND,
+    TEST_COMMAND
   ]);
 });

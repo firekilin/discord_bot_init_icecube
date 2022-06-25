@@ -43,7 +43,6 @@ app.listen(9527, () => {
 
   // Check if guild commands from commands.json are installed (if not, install them)
   HasGuildCommands(process.env.APP_ID, process.env.GUILD_ID, [
-    TEST_COMMAND,
-    CHALLENGE_COMMAND,
+    TEST_COMMAND
   ]);
 });

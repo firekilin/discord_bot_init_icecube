@@ -7,21 +7,15 @@ import { VerifyDiscordRequest, DiscordRequest } from './utils.js';
 const app = express();
 app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 
-app.post('/interactions', function (req, res) {
-  // Interaction type and data
-  const { type, data } = req.body;
-  /**
-   * Handle slash command requests
-   */
-  if (type === InteractionType.APPLICATION_COMMAND) {
-    // Slash command with name of "test"
-    if (data.name === 'test') {
-      // Send a message as response
-      return res.send({
-        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-        data: { content: 'A wild message appeared' },
-      });
-    }
+app.post('/interactions', verifyKeyMiddleware('MY_CLIENT_PUBLIC_KEY'), (req, res) => {
+  const message = req.body;
+  if (message.type === InteractionType.APPLICATION_COMMAND) {
+    res.send({
+      type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+      data: {
+        content: 'Hello world',
+      },
+    });
   }
 });
 

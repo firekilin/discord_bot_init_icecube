@@ -11,7 +11,7 @@ async function HasGuildCommand(appId, guildId, command) {
   // API endpoint to get and post guild commands
   console.log('appid:'+appId);
   console.log('guildid:'+guildId);
-  console.log('guildid:'+command);
+  console.log('command:'+command['name']);
   const endpoint = `applications/${appId}/guilds/${guildId}/commands`;
 
   try {
@@ -41,7 +41,7 @@ export async function InstallGuildCommand(appId, guildId, command) {
   const endpoint = `applications/${appId}/guilds/${guildId}/commands`;
   // install command
   try {
-    await DiscordRequest(endpoint, { method: 'POST', body: command });
+    await DiscordRequest(endpoint, { method: 'POST', body: command['name'] });
   } catch (err) {
     console.error(err);
   }

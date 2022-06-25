@@ -1,3 +1,4 @@
+import { getRPSChoices } from './game.js';
 import { capitalize, DiscordRequest } from './utils.js';
 
 export async function HasGuildCommands(appId, guildId, commands) {
@@ -29,7 +30,6 @@ async function HasGuildCommand(appId, guildId, command) {
     console.error(err);
   }
 }
-
 // Installs a command
 export async function InstallGuildCommand(appId, guildId, command) {
   // API endpoint to get and post guild commands
@@ -42,11 +42,9 @@ export async function InstallGuildCommand(appId, guildId, command) {
   }
 }
 
-
 // Simple test command
 export const TEST_COMMAND = {
   name: 'test',
   description: 'Basic guild command',
   type: 1,
 };
-

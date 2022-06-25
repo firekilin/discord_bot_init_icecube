@@ -3,7 +3,8 @@ import express from 'express';
 import { InteractionType, InteractionResponseType,verifyKeyMiddleware  } from 'discord-interactions';
 import { VerifyDiscordRequest, DiscordRequest } from './utils.js';
 import {
-  TEST_COMMAND
+  TEST_COMMAND,
+  HasGuildCommands
 } from './commands.js';
 // Create and configure express app
 const app = express();

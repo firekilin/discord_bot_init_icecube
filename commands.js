@@ -16,7 +16,7 @@ async function HasGuildCommand(appId, guildId, command) {
 
   try {
     console.log('endpoint'+endpoint);
-    const res = await DiscordRequest(endpoint, { method: 'POST' });
+    const res = await DiscordRequest(endpoint, { method: 'GET' });
     const data = await res.json();
 
     if (data) {

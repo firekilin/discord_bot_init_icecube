@@ -7,7 +7,7 @@ import { VerifyDiscordRequest, DiscordRequest } from './utils.js';
 const app = express();
 app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 
-app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY)), (req, res) => {
+app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), (req, res) => {
   const message = req.body;
   if (message.type === InteractionType.APPLICATION_COMMAND) {
     res.send({

@@ -11,7 +11,7 @@ async function HasGuildCommand(appId, guildId, command) {
   // API endpoint to get and post guild commands
   console.log('appid:'+appId);
   console.log('guildid:'+guildId);
-  const endpoint = `applications/${appId}/guilds/${guildId}/commands`;
+  const endpoint = `applications/${appId}/commands`;
 
   try {
     const res = await DiscordRequest(endpoint, { method: 'GET' });

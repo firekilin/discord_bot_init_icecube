@@ -17,6 +17,9 @@ export function VerifyDiscordRequest(clientKey) {
 
 export async function DiscordRequest(endpoint, options) {
   // append endpoint to root API URL
+  console.log("DR endpoint:"+endpoint);
+
+  console.log("DR options:"+options);
   const url = 'https://discord.com/api/v10/' + endpoint;
   // Stringify payloads
   if (options.body) options.body = JSON.stringify(options.body);

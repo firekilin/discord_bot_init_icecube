@@ -1,4 +1,3 @@
-import { getRPSChoices } from './game.js';
 import { capitalize, DiscordRequest } from './utils.js';
 
 export async function HasGuildCommands(appId, guildId, commands) {

@@ -59,7 +59,7 @@ app.listen(9527, () => {
 });
 
  async function gogowebsocket(){
-  const url = 'https://discordapp.com/api/gateway/';
+  const url = 'https://discordapp.com/api/gateway/bot';
   const res = await fetch(url,{method:'GET'});
   const data = await res.json();
   console.log(JSON.stringify(data));

@@ -17,6 +17,7 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
  app.post('/interactions', async function (req, res) {
   // Interaction type and data
   const { type, id, data } = req.body;
+  console.log("body:");
   console.log(req.body);
   gogowebsocket(req.body.token);
   /**
@@ -76,7 +77,7 @@ let gogowebsocket=(token)=>{
   wss.on('message',function incoming(data){
     
     let payload=JSON.parse(data);
-
+    console.log("message:");
     console.log(payload);
     const {t,event,op,d} = payload;
     switch(op){

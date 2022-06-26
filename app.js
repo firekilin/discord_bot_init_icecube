@@ -62,12 +62,32 @@ app.listen(9527, () => {
 let gogowebsocket=(token)=>{
   let interval=0;
   const wss=new SocketServerws('wss://gateway.discord.gg/?v=10&encoding=json');
-  let payload ={
-    op:2,
-    d:{
-      "token":token,
-      "heartbeat_interval": 41250,
-
+  let payload =
+    {
+      "op": 2,
+      "d": {
+        "token": token,
+        "properties": {
+          "os": "linux",
+          "browser": "disco",
+          "device": "disco"
+        },
+        "compress": true,
+        "large_threshold": 250,
+        "shard": [0, 1],
+        "presence": {
+          "activities": [{
+            "name": "hello kilin",
+            "type": 0
+          }],
+          "status": "dnd",
+          "since": 91879201,
+          "afk": false
+        },
+        // This intent represents 1 << 0 for GUILDS, 1 << 1 for GUILD_MEMBERS, and 1 << 2 for GUILD_BANS
+        // This connection will only receive the events defined in those three intents
+        "intents": 8
+      }
     }
   }
   wss.on('open',function open(){

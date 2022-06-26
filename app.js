@@ -55,23 +55,20 @@ app.listen(9527, () => {
   HasGuildCommands(process.env.APP_ID, process.env.GUILD_ID, [
     TEST_COMMAND
   ]);
+  gogowebsocket();
 });
 
-
-const url = 'https://discordapp.com/api/gateway/';
-  // Stringify payloads
-if (options.body) options.body = JSON.stringify(options.body);
-// Use node-fetch to make requests
-const res = await fetch(url);
-
-const wss=new SocketServerws(res.url);
-
-//開啟後執行的動作，指定一個 function 會在連結 WebSocket 後執行
-wss.onopen = () => {
-  console.log('open connection')
-}
-
-//關閉後執行的動作，指定一個 function 會在連結中斷後執行
-wss.onclose = () => {
-  console.log('close connection')
+function gogowebsocket(){
+  const url = 'https://discordapp.com/api/gateway/';
+  const res = await fetch(url);
+  const wss=new SocketServerws(res.url);
+  //開啟後執行的動作，指定一個 function 會在連結 WebSocket 後執行
+  wss.onopen = () => {
+    console.log('open connection')
+  }
+  
+  //關閉後執行的動作，指定一個 function 會在連結中斷後執行
+  wss.onclose = () => {
+    console.log('close connection')
+  }
 }

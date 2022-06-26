@@ -68,9 +68,12 @@ let gogowebsocket=(token)=>{
     }
   }
   wss.on('open',function open(){
+    console.log("open");
     wss.send(JSON.stringify(payload));
+
   });
   wss.on('message',function incoming(data){
+    console.log(date);
     let payload=JSON.parse(data);
     const {t,event,op,d} = payload;
     switch(op){

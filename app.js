@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import SocketServerws from 'ws';
 import express from 'express';
+import fetch from 'node-fetch';
 import { InteractionType, InteractionResponseType,verifyKeyMiddleware  } from 'discord-interactions';
 import { VerifyDiscordRequest, getRandomEmoji } from './utils.js';
 import {
@@ -56,7 +57,14 @@ app.listen(9527, () => {
   ]);
 });
 
-const wss=new SocketServerws('wss://geteway.discord.gg');
+
+const url = 'https://discordapp.com/api/gateway/';
+  // Stringify payloads
+if (options.body) options.body = JSON.stringify(options.body);
+// Use node-fetch to make requests
+const res = await fetch(url);
+
+const wss=new SocketServerws(res.url);
 
 //開啟後執行的動作，指定一個 function 會在連結 WebSocket 後執行
 wss.onopen = () => {

@@ -65,7 +65,7 @@ let gogowebsocket=(token)=>{
     op:2,
     d:{
       "token":token,
-      "heartbeat_interval": 45000
+      "heartbeat_interval": 41250
     }
   }
   wss.on('open',function open(){
@@ -82,7 +82,8 @@ let gogowebsocket=(token)=>{
     const {t,event,op,d} = payload;
     switch(op){
       case 10:
-        const {test}=d;
+        const {heartbeat_interval}=d;
+        interval=hearbeat(heartbeat_interval);
         break;
     }
 
@@ -97,7 +98,7 @@ let gogowebsocket=(token)=>{
   const hearbeat=(ms)=>{
     return setInterval(()=>{
       wss.send(JSON.stringify({op:2,d:null}));
-    },)
+    },ms)
   }
 
 

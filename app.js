@@ -58,7 +58,7 @@ app.listen(9527, () => {
   gogowebsocket();
 });
 
-function gogowebsocket(){
+ async function gogowebsocket(){
   const url = 'https://discordapp.com/api/gateway/';
   const res = await fetch(url);
   const wss=new SocketServerws(res.url);

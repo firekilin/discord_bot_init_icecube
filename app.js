@@ -56,27 +56,15 @@ const servers=app.listen(9527, () => {
   ]);
 });
 
-const wss=new SocketServer({servers})
+const wss=new SocketServer({servers});
+//當 WebSocket 從外部連結時執行
+wss.on('connection', ws => {
 
-wss.on('connection',ws=>{
-  console.log('Client connected')
-  // 當收到client消息時
-  ws.on('message', data => {
-    // 收回來是 Buffer 格式、需轉成字串
-    data = data.toString()  
-    console.log(data) // 可在 terminal 看收到的訊息
+  //連結時執行此 console 提示
+  console.log('Client connected');
 
-    /// 發送消息給client 
-    ws.send(data)
-
-    /// 發送給所有client： 
-    let clients = wss.clients  //取得所有連接中的 client
-    clients.forEach(client => {
-        client.send(data)  // 發送至每個 client
-    })
-  })
-  // 當連線關閉
+  //當 WebSocket 的連線關閉時執行
   ws.on('close', () => {
-    console.log('Close connected')
+      console.log('Close connected');
   })
 });

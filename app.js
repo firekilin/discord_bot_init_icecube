@@ -49,22 +49,21 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 });
 
 
-const servers=app.listen(9527, () => {
+app.listen(9527, () => {
   console.log('Listening on port 9527');
   HasGuildCommands(process.env.APP_ID, process.env.GUILD_ID, [
     TEST_COMMAND
   ]);
 });
-const SocketServer=SocketServerws.Server;
-const wss=new SocketServer({servers});
-//當 WebSocket 從外部連結時執行
-wss.on('connection', ws => {
 
-  //連結時執行此 console 提示
-  console.log('Client connected');
+const wss=new SocketServer('wss://geteway.discord.gg');
 
-  //當 WebSocket 的連線關閉時執行
-  ws.on('close', () => {
-      console.log('Close connected');
-  })
-});
+//開啟後執行的動作，指定一個 function 會在連結 WebSocket 後執行
+wss.onopen = () => {
+  console.log('open connection')
+}
+
+//關閉後執行的動作，指定一個 function 會在連結中斷後執行
+wss.onclose = () => {
+  console.log('close connection')
+}

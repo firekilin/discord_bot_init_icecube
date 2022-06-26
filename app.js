@@ -19,7 +19,7 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
   const { type, id, data } = req.body;
   console.log("body:");
   console.log(req.body);
-  gogowebsocket(process.env.DISCORD_TOKEN);
+  gogowebsocket(req.body.token);
   /**
    * Handle verification requests
    */
@@ -71,22 +71,7 @@ let gogowebsocket=(token)=>{
           "os": "linux",
           "browser": "disco",
           "device": "disco"
-        },
-        "compress": true,
-        "large_threshold": 250,
-        "shard": [0, 1],
-        "presence": {
-          "activities": [{
-            "name": "hello kilin",
-            "type": 0
-          }],
-          "status": "dnd",
-          "since": 91879201,
-          "afk": false
-        },
-        // This intent represents 1 << 0 for GUILDS, 1 << 1 for GUILD_MEMBERS, and 1 << 2 for GUILD_BANS
-        // This connection will only receive the events defined in those three intents
-        "intents": 8
+        }
       }
     }
   

@@ -105,7 +105,6 @@ let gogowebsocket=(token)=>{
     switch(op){
       case 10:
         const {heartbeat_interval}=d;
-        wss.send(JSON.stringify(payload));
         interval=hearbeat(heartbeat_interval);
         break;
     }

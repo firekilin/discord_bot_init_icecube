@@ -22,7 +22,8 @@
     "discord-interactions": "^3.2.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
-    "node-fetch": "^3.2.3"
+    "node-fetch": "^3.2.3",
+    "ws": "^8.8.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

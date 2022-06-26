@@ -1,4 +1,5 @@
 import 'dotenv/config';
+const SocketServer = require('ws').Server
 import express from 'express';
 import { InteractionType, InteractionResponseType,verifyKeyMiddleware  } from 'discord-interactions';
 import { VerifyDiscordRequest, getRandomEmoji } from './utils.js';
@@ -19,6 +20,7 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
   /**
    * Handle verification requests
    */
+
   if (type === InteractionType.PING) {
     return res.send({ type: InteractionResponseType.PONG });
   }
@@ -47,9 +49,34 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 });
 
 
-app.listen(9527, () => {
+const server=app.listen(9527, () => {
   console.log('Listening on port 9527');
   HasGuildCommands(process.env.APP_ID, process.env.GUILD_ID, [
     TEST_COMMAND
   ]);
+});
+
+const wss=new SocketServer({server})
+
+wss.on('connection',ws=>{
+  console.log('Client connected')
+  // 當收到client消息時
+  ws.on('message', data => {
+    // 收回來是 Buffer 格式、需轉成字串
+    data = data.toString()  
+    console.log(data) // 可在 terminal 看收到的訊息
+
+    /// 發送消息給client 
+    ws.send(data)
+
+    /// 發送給所有client： 
+    let clients = wss.clients  //取得所有連接中的 client
+    clients.forEach(client => {
+        client.send(data)  // 發送至每個 client
+    })
+  })
+  // 當連線關閉
+  ws.on('close', () => {
+    console.log('Close connected')
+  })
 });

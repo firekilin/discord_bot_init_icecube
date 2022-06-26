@@ -80,7 +80,10 @@ let gogowebsocket=async (token)=>{
 
   });
   wss.on('message',function incoming(data){
+
     let payload=JSON.parse(data);
+    console.log("/n/n payload: ");
+    console.log(payload);
     const {t,event,op,d} = payload;
     switch(op){
       case 10:

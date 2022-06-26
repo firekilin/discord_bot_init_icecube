@@ -60,6 +60,7 @@ app.listen(9527, () => {
   
 });
 let gogowebsocket=(token)=>{
+  let interval=0;
   const wss=new SocketServerws('wss://gateway.discord.gg/?v=10&encoding=json');
   let payload ={
     op:2,

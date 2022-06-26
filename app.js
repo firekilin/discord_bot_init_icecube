@@ -19,7 +19,7 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
   const { type, id, data } = req.body;
   console.log("body:");
   console.log(req.body);
-  gogowebsocket(req.body.token);
+  gogowebsocket(process.env.DISCORD_TOKEN);
   /**
    * Handle verification requests
    */
@@ -66,7 +66,8 @@ let gogowebsocket=(token)=>{
     op:2,
     d:{
       "token":token,
-      "heartbeat_interval": 41250
+      "heartbeat_interval": 41250,
+
     }
   }
   wss.on('open',function open(){

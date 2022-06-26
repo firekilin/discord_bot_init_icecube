@@ -17,9 +17,7 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
  app.post('/interactions', async function (req, res) {
   // Interaction type and data
   const { type, id, data } = req.body;
-  console.log("body:");
-  console.log(req.body);
-  gogowebsocket(req.body.token);
+
   /**
    * Handle verification requests
    */
@@ -57,11 +55,14 @@ app.listen(9527, () => {
   HasGuildCommands(process.env.APP_ID, process.env.GUILD_ID, [
     TEST_COMMAND
   ]);
-  
+  console.log("body:");
+  console.log(req.body);
+  gogowebsocket(process.env.DISCORD_TOKEN);
 });
 let gogowebsocket=(token)=>{
   let interval=0;
-  const wss=new SocketServerws('wss://gateway.discord.gg/?v=10&encoding=json');
+  const gateway = await (await fetch("https://discord.com/api/gateway")).json();
+  const wss = new WebSocket(gateway.url);
   let payload =
     {
       "op": 2,

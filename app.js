@@ -55,11 +55,9 @@ app.listen(9527, () => {
   HasGuildCommands(process.env.APP_ID, process.env.GUILD_ID, [
     TEST_COMMAND
   ]);
-  console.log("body:");
-  console.log(req.body);
   gogowebsocket(process.env.DISCORD_TOKEN);
 });
-let gogowebsocket=(token)=>{
+let gogowebsocket=async (token)=>{
   let interval=0;
   const gateway = await (await fetch("https://discord.com/api/gateway")).json();
   const wss = new WebSocket(gateway.url);

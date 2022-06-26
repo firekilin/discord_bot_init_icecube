@@ -77,7 +77,7 @@ let gogowebsocket=()=>{
     switch(op){
       case 10:
         const {test}=d;
-        beark;
+        break;
     }
 
     switch(t){

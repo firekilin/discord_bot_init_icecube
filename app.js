@@ -49,24 +49,34 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 });
 
 
-app.listen(9527, () => {
+const servers=app.listen(9527, () => {
   console.log('Listening on port 9527');
   HasGuildCommands(process.env.APP_ID, process.env.GUILD_ID, [
     TEST_COMMAND
   ]);
 });
 
-const wss=new SocketServer('ws://localhost:9527');
-//開啟後執行的動作，指定一個 function 會在連結 WebSocket 後執行
-wss.onopen = () => {
-  console.log('open connection');
-}
+const wss=new SocketServer({servers})
 
-//關閉後執行的動作，指定一個 function 會在連結中斷後執行
-wss.onclose = () => {
-  console.log('close connection');
-}
+wss.on('connection',ws=>{
+  console.log('Client connected')
+  // 當收到client消息時
+  ws.on('message', data => {
+    // 收回來是 Buffer 格式、需轉成字串
+    data = data.toString()  
+    console.log(data) // 可在 terminal 看收到的訊息
 
-wss.onerror =(e)=>{
-  console.log('err:'+JSON.stringify(e));
-}
+    /// 發送消息給client 
+    ws.send(data)
+
+    /// 發送給所有client： 
+    let clients = wss.clients  //取得所有連接中的 client
+    clients.forEach(client => {
+        client.send(data)  // 發送至每個 client
+    })
+  })
+  // 當連線關閉
+  ws.on('close', () => {
+    console.log('Close connected')
+  })
+});

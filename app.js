@@ -65,12 +65,12 @@ let gogowebsocket=async (token)=>{
     {
       "op": 2,
       "d": {
-        token: token,
+        "token": token,
         intents: 16383,
-        properties: {
-          "$os": navigator.oscpu,
-          "$browser": navigator.userAgent,
-          "$device": navigator.platform
+        "properties": {
+          "os": "linux",
+          "browser": "disco",
+          "device": "disco"
         }
       }
     }

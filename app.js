@@ -67,6 +67,7 @@ let gogowebsocket=(token)=>{
       "op": 2,
       "d": {
         "token": token,
+        intents: 16383,
         "properties": {
           "os": "linux",
           "browser": "disco",

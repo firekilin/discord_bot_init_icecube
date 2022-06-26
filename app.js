@@ -89,7 +89,7 @@ let gogowebsocket=(token)=>{
         "intents": 8
       }
     }
-  }
+  
   wss.on('open',function open(){
     console.log("open:");
     console.log(payload);

@@ -60,7 +60,7 @@ app.listen(9527, () => {
 let gogowebsocket=async (token)=>{
   let interval=0;
   const gateway = await (await fetch("https://discord.com/api/gateway")).json();
-  const wss = new WebSocket(gateway.url);
+  const wss = new SocketServerws(gateway.url);
   let payload =
     {
       "op": 2,

@@ -63,18 +63,20 @@ let gogowebsocket=(token)=>{
   let payload ={
     op:2,
     d:{
-      token:token,
-      intent:513
+      "token":token,
+      "heartbeat_interval": 45000
     }
   }
   wss.on('open',function open(){
-    console.log("open:"+payload);
+    console.log("open:");
+    console.log(payload);
     wss.send(JSON.stringify(payload));
 
   });
   wss.on('message',function incoming(data){
     
     let payload=JSON.parse(data);
+
     console.log(payload);
     const {t,event,op,d} = payload;
     switch(op){

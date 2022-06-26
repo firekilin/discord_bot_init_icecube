@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import SocketServerws from 'ws';
-import express from 'express';
+import express, { json } from 'express';
 import fetch from 'node-fetch';
 import { InteractionType, InteractionResponseType,verifyKeyMiddleware  } from 'discord-interactions';
 import { VerifyDiscordRequest, getRandomEmoji } from './utils.js';
@@ -57,20 +57,44 @@ app.listen(9527, () => {
   ]);
   gogowebsocket();
 });
+let gogowebsocket=()=>{
+  const wss=new SocketServerws('wss://gateway.discord.gg/?v=10&encoding=json');
 
- async function gogowebsocket(){
-  const url = 'https://discordapp.com/api/gateway/bot';
-  const res = await fetch(url,{method:'GET'});
-  const data = await res.json();
-  console.log(JSON.stringify(data));
-  const wss=new SocketServerws(data.url);
-  //開啟後執行的動作，指定一個 function 會在連結 WebSocket 後執行
-  wss.onopen = () => {
-    console.log('open connection')
+  const token=process.env.DISCORD_TOKEN;
+  let payload ={
+    op:2,
+    d:{
+      token:token,
+      intent:513
+    }
   }
-  
-  //關閉後執行的動作，指定一個 function 會在連結中斷後執行
-  wss.onclose = () => {
-    console.log('close connection')
+  wss.on('open',function open(){
+    wss.send(JSON.stringify(payload));
+  });
+  wss.on('message',function incoming(data){
+    let payload=JSON.parse(data);
+    const {t,event,op,d} = payload;
+    switch(op){
+      case 10:
+        const {test}=d;
+        beark;
+    }
+
+    switch(t){
+      case 'MESSAGE_CREATE':
+        let author=d.author.username;
+        let content = d.content;
+        console.log(author+":"+content);
+    }
+
+  });
+  const hearbeat=(ms)=>{
+    return setInterval(()=>{
+      wss.send(JSON.stringify({op:2,d:null}));
+    },)
   }
+
+
+
 }
+ 

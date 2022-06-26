@@ -61,6 +61,7 @@ app.listen(9527, () => {
  async function gogowebsocket(){
   const url = 'https://discordapp.com/api/gateway/';
   const res = await fetch(url);
+  console.log(res.url);
   const wss=new SocketServerws(res.url);
   //開啟後執行的動作，指定一個 function 會在連結 WebSocket 後執行
   wss.onopen = () => {

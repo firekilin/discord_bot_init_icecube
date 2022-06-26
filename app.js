@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import {Server} from 'ws';
+import SocketServer from 'ws';
 import express from 'express';
 import { InteractionType, InteractionResponseType,verifyKeyMiddleware  } from 'discord-interactions';
 import { VerifyDiscordRequest, getRandomEmoji } from './utils.js';
@@ -56,7 +56,7 @@ const servers=app.listen(9527, () => {
   ]);
 });
 
-const wss=new Server({servers})
+const wss=new SocketServer({servers})
 
 wss.on('connection',ws=>{
   console.log('Client connected')

@@ -49,14 +49,14 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 });
 
 
-const servers=app.listen(9527, () => {
+app.listen(9527, () => {
   console.log('Listening on port 9527');
   HasGuildCommands(process.env.APP_ID, process.env.GUILD_ID, [
     TEST_COMMAND
   ]);
 });
 
-const wss=new SocketServer({servers})
+const wss=new SocketServer('ws://localhost:9527')
 
 wss.on('connection',ws=>{
   console.log('Client connected')

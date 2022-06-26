@@ -68,5 +68,5 @@ wss.onclose = () => {
 }
 
 wss.onerror =(e)=>{
-  console.log('err:'+e);
+  console.log('err:'+JSON.stringify(e.json()));
 }

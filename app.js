@@ -56,7 +56,7 @@ app.listen(9527, () => {
   ]);
 });
 
-const wss=new SocketServer('wss://geteway.discord.gg');
+const wss=new SocketServerws('wss://geteway.discord.gg');
 
 //開啟後執行的動作，指定一個 function 會在連結 WebSocket 後執行
 wss.onopen = () => {

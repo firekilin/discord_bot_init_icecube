@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import SocketServer from 'ws';
+import SocketServerws from 'ws';
 import express from 'express';
 import { InteractionType, InteractionResponseType,verifyKeyMiddleware  } from 'discord-interactions';
 import { VerifyDiscordRequest, getRandomEmoji } from './utils.js';
@@ -55,8 +55,8 @@ const servers=app.listen(9527, () => {
     TEST_COMMAND
   ]);
 });
-
-const wss=new SocketServer.Server({servers});
+const SocketServer=SocketServerws.Server;
+const wss=new SocketServer({servers});
 //當 WebSocket 從外部連結時執行
 wss.on('connection', ws => {
 

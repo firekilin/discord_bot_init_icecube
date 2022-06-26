@@ -73,8 +73,9 @@ let gogowebsocket=(token)=>{
 
   });
   wss.on('message',function incoming(data){
-    console.log(data);
+    
     let payload=JSON.parse(data);
+    console.log(payload);
     const {t,event,op,d} = payload;
     switch(op){
       case 10:

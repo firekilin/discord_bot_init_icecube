@@ -56,7 +56,7 @@ const servers=app.listen(9527, () => {
   ]);
 });
 
-const wss=new SocketServer({servers});
+const wss=new SocketServer.Server({servers});
 //當 WebSocket 從外部連結時執行
 wss.on('connection', ws => {
 

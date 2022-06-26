@@ -1,5 +1,5 @@
 import 'dotenv/config';
-const SocketServer = require('ws').Server
+import {Server} from 'ws';
 import express from 'express';
 import { InteractionType, InteractionResponseType,verifyKeyMiddleware  } from 'discord-interactions';
 import { VerifyDiscordRequest, getRandomEmoji } from './utils.js';
@@ -49,14 +49,14 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 });
 
 
-const server=app.listen(9527, () => {
+const servers=app.listen(9527, () => {
   console.log('Listening on port 9527');
   HasGuildCommands(process.env.APP_ID, process.env.GUILD_ID, [
     TEST_COMMAND
   ]);
 });
 
-const wss=new SocketServer({server})
+const wss=new Server({servers})
 
 wss.on('connection',ws=>{
   console.log('Client connected')

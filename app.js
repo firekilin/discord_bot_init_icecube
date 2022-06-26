@@ -56,13 +56,17 @@ app.listen(9527, () => {
   ]);
 });
 
-const wss=new SocketServer('ws://localhost:9527')
+const wss=new SocketServer('ws://localhost:9527');
 //開啟後執行的動作，指定一個 function 會在連結 WebSocket 後執行
 wss.onopen = () => {
-  console.log('open connection')
+  console.log('open connection');
 }
 
 //關閉後執行的動作，指定一個 function 會在連結中斷後執行
 wss.onclose = () => {
-  console.log('close connection')
+  console.log('close connection');
+}
+
+wss.onerror =(e)=>{
+  console.log('err:'+e);
 }

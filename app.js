@@ -82,15 +82,12 @@ let gogowebsocket=async (token)=>{
   wss.on('message',function incoming(data){
 
     let payload=JSON.parse(data);
-    console.log("/n/n payload: ");
+    console.log("\n\n payload: ");
     console.log(payload);
     const {t,event,op,d} = payload;
-    switch(op){
-      case 10:
-        const {heartbeat_interval}=d;
-        interval=hearbeat(heartbeat_interval);
-        break;
-    }
+
+    const {heartbeat_interval}=d;
+    interval=hearbeat(heartbeat_interval);
 
     switch(t){
       case 'MESSAGE_CREATE':

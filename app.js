@@ -3,7 +3,8 @@ import SocketServerws from 'ws';
 import express, { json } from 'express';
 import fetch from 'node-fetch';
 import { InteractionType, InteractionResponseType,verifyKeyMiddleware  } from 'discord-interactions';
-import { VerifyDiscordRequest, getRandomEmoji } from './utils.js';
+import { VerifyDiscordRequest, getRandomEmoji,DiscordRequest } from './utils.js';
+
 import {
   TEST_COMMAND,
   HasGuildCommands
@@ -101,23 +102,14 @@ let gogowebsocket=async (token)=>{
         let author=d.author.username;
         let content = d.content;
         console.log(author+":"+content);
-        wss.send({
-          "content": "This is a message with components",
-          "components": [
-              {
-                  "type": 1,
-                  "components": [
-                      {
-                          "type": 2,
-                          "label": "Click me!",
-                          "style": 1,
-                          "custom_id": "click_one"
-                      }
-                  ]
-      
-              }
-          ]
-      });
+        const endpoint = `applications/${process.env.APP_ID}/guilds/${d.guild_id}/commands`;
+        const command={
+          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+          data: {
+            // Fetches a random emoji to send from a helper function
+            content: 'hello world ' + getRandomEmoji(),
+          }};
+        DiscordRequest(endpoint, { method: 'POST', body: command });
     }
 
   });

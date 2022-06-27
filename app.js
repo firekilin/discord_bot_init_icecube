@@ -102,16 +102,9 @@ let gogowebsocket=async (token)=>{
         let author=d.author.username;
         let content = d.content;
         console.log(author+":"+content);
-        const endpoint = `/channels/${d.channel_id}/messages`;
-        const command={
-          "content": "Hello, World!",
-          "tts": false,
-          "embeds": [{
-            "title": "Hello, Embed!",
-            "description": "This is an embedded message."
-          }]
-        };
-        DiscordRequest(endpoint, { method: 'POST', body: command });
+        if(author.id!=process.env.APP_ID && content=="HI"){
+          sendmessage(channel_id,"Hi "+author);
+        }
     }
 
   });
@@ -124,3 +117,16 @@ let gogowebsocket=async (token)=>{
 
 }
  
+function sendmessage(channelId,message){
+  const endpoint = `/channels/${channelId}/messages`;
+        
+  const body={
+    "content": message,
+    "tts": false,
+    "embeds": [{
+      "title": "Hello, Embed!",
+      "description": "This is an embedded message."
+    }]
+  };
+  DiscordRequest(endpoint, { method: 'POST', body: body });
+}

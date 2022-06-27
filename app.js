@@ -103,7 +103,7 @@ let gogowebsocket=async (token)=>{
         let content = d.content;
         console.log(author+":"+content);
         if(author.id!=process.env.APP_ID && content=="HI"){
-          sendmessage(channel_id,"Hi "+author);
+          sendmessage(d.channel_id,"Hi "+author);
         }
     }
 

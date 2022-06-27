@@ -84,7 +84,7 @@ let gogowebsocket=async (token)=>{
     let payload=JSON.parse(data);
    
 
-    const {t,event,op,d,s} = payload;
+    const {t,s,op,d} = payload;
     console.log("\n\n payload: ");
     console.log(payload);
     wss.send()

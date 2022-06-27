@@ -92,9 +92,7 @@ let gogowebsocket=async (token)=>{
         interval=hearbeat(heartbeat_interval);
         hearbeats(interval,s);
         break;
-      case 11:
-        hearbeats(interval,s);
-        break;
+
 
     }
 

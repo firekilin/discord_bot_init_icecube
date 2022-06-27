@@ -102,13 +102,15 @@ let gogowebsocket=async (token)=>{
         let author=d.author.username;
         let content = d.content;
         console.log(author+":"+content);
-        const endpoint = `applications/${process.env.APP_ID}/guilds/${d.guild_id}/commands`;
+        const endpoint = `/channels/${d.channel_id}/messages`;
         const command={
-          type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-          data: {
-            // Fetches a random emoji to send from a helper function
-            content: 'hello world ' + getRandomEmoji(),
-          }};
+          "content": "Hello, World!",
+          "tts": false,
+          "embeds": [{
+            "title": "Hello, Embed!",
+            "description": "This is an embedded message."
+          }]
+        };
         DiscordRequest(endpoint, { method: 'POST', body: command });
     }
 

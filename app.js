@@ -85,9 +85,12 @@ let gogowebsocket=async (token)=>{
     console.log("\n\n payload: ");
     console.log(payload);
     const {t,event,op,d} = payload;
-
-    const {heartbeat_interval}=d;
-    interval=hearbeat(heartbeat_interval);
+    switch(op){
+      case 10:
+        const {heartbeat_interval}=d;
+        interval=hearbeat(heartbeat_interval);
+        break;
+    }
 
     switch(t){
       case 'MESSAGE_CREATE':

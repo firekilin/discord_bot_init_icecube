@@ -101,6 +101,23 @@ let gogowebsocket=async (token)=>{
         let author=d.author.username;
         let content = d.content;
         console.log(author+":"+content);
+        wss.send({
+          "content": "This is a message with components",
+          "components": [
+              {
+                  "type": 1,
+                  "components": [
+                      {
+                          "type": 2,
+                          "label": "Click me!",
+                          "style": 1,
+                          "custom_id": "click_one"
+                      }
+                  ]
+      
+              }
+          ]
+      });
     }
 
   });

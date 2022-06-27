@@ -87,7 +87,6 @@ let gogowebsocket=async (token)=>{
     const {t,s,op,d} = payload;
     console.log("\n\n payload: ");
     console.log(payload);
-    wss.send()
     switch(op){
       case 10:
         const {heartbeat_interval}=d;

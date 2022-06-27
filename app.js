@@ -86,7 +86,7 @@ let gogowebsocket=async (token)=>{
 
     const {t,event,op,d,s} = payload;
     console.log("\n\n payload: ");
-    console.log(payload.d.member.user+":"+payload.d.user_id+":"+payload.d.channel_id);
+    console.log(d.member+":"+d.user_id+":"+d.channel_id);
     wss.send()
     switch(op){
       case 10:

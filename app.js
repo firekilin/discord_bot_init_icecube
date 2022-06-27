@@ -58,7 +58,7 @@ app.listen(9527, () => {
   gogowebsocket(process.env.DISCORD_TOKEN);
 });
 let gogowebsocket=async (token)=>{
-  let interval=0;
+  let interval=4500;
   const gateway = await (await fetch("https://discord.com/api/gateway")).json();
   const wss = new SocketServerws(gateway.url);
   let payload =
@@ -82,7 +82,7 @@ let gogowebsocket=async (token)=>{
   wss.on('message',function incoming(data){
 
     let payload=JSON.parse(data);
-    
+
     const {t,s,op,d} = payload;
     console.log("\n\n payload: ");
     console.log(payload);

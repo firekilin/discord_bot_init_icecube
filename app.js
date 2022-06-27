@@ -82,14 +82,21 @@ let gogowebsocket=async (token)=>{
   wss.on('message',function incoming(data){
 
     let payload=JSON.parse(data);
+   
+
+    const {t,event,op,d,s} = payload;
     console.log("\n\n payload: ");
-    console.log(payload);
-    const {t,event,op,d} = payload;
+    console.log(payload.d.member.user+":"+payload.d.user_id+":"+payload.d.channel_id);
+    wss.send()
     switch(op){
       case 10:
         const {heartbeat_interval}=d;
         interval=hearbeat(heartbeat_interval);
         break;
+      default:
+        interval=hearbeats(heartbeat_interval,s);
+        break;
+
     }
 
     switch(t){
@@ -105,7 +112,11 @@ let gogowebsocket=async (token)=>{
       wss.send(JSON.stringify({op:2,d:null}));
     },ms)
   }
-
+  const hearbeats=(ms,s)=>{
+    return setInterval(()=>{
+      wss.send(JSON.stringify({op:1,d:s}));
+    },ms)
+  }
 
 
 }

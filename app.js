@@ -90,7 +90,6 @@ let gogowebsocket=async (token)=>{
       case 10:
         const {heartbeat_interval}=d;
         interval=hearbeat(heartbeat_interval);
-        hearbeats(interval,s);
         break;
 
 
@@ -108,11 +107,6 @@ let gogowebsocket=async (token)=>{
     return setInterval(()=>{
       wss.send(JSON.stringify({op:2,d:null}));
     },ms)
-  }
-  const hearbeats=(ms,s)=>{
-    setInterval(()=>{
-      wss.send(JSON.stringify({op:1,d:s}));
-    },ms);
   }
 
 

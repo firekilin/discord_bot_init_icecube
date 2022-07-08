@@ -1,13 +1,10 @@
 import 'dotenv/config';
-import express, { json } from 'express';
+import express from 'express';
 import { InteractionType, InteractionResponseType,verifyKeyMiddleware  } from 'discord-interactions';
 import { VerifyDiscordRequest } from './utils.js';
 import { gogowebsocket } from './gateway.js';
+import { commandinit } from './commands.js';
 
-import {
-  TEST_COMMAND,
-  HasGuildCommands
-} from './commands.js';
 // Create and configure express app
 const app = express();
 app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
@@ -23,7 +20,7 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
     const { name } = data;
 
     // "test" guild command
-    if (name === 'test') {
+    if (name === 'hello') {
       return res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
@@ -39,9 +36,7 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 
 app.listen(9527, () => {
   console.log('Listening on port 9527');
-  HasGuildCommands(process.env.APP_ID, process.env.GUILD_ID, [
-    TEST_COMMAND
-  ]);
+  commandinit();
   gogowebsocket(process.env.DISCORD_TOKEN);
 });
 
@@ -51,3 +46,5 @@ export function getRandomEmoji() {
   const emojiList = ['😭','😄','😌','🤓','😎','😤','🤖','😶‍🌫️','🌏','📸','💿','👋','🌊','✨'];
   return emojiList[Math.floor(Math.random() * emojiList.length)];
 }
+
+

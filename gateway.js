@@ -1,6 +1,6 @@
 import SocketServerws from 'ws';
 import fetch from 'node-fetch';
-import { sendmessage } from './api';
+import { sendmessage } from './api.js';
 
 export async function gogowebsocket(token){
   let interval=4500;

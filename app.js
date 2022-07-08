@@ -2,7 +2,7 @@ import 'dotenv/config';
 import express, { json } from 'express';
 import { InteractionType, InteractionResponseType,verifyKeyMiddleware  } from 'discord-interactions';
 import { VerifyDiscordRequest } from './utils.js';
-import { gogowebsocket } from './gateway';
+import { gogowebsocket } from './gateway.js';
 
 import {
   TEST_COMMAND,

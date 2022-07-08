@@ -29,8 +29,8 @@ export async function gogowebsocket(token){
     let payload=JSON.parse(data);
 
     const {t,s,op,d} = payload;
-    console.log("\n\n payload: ");
-    console.log(payload);
+    //console.log("\n\n payload: ");
+    //console.log(payload);
 
     switch(op){
       case 10:

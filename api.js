@@ -19,7 +19,7 @@ export  async  function sendmessage(channelId,message){
 export async function createcommand(commands){
   const endpoint = `/applications/${process.env.APP_ID}/commands`;
   try {
-    await DiscordRequest(endpoint, { method: 'POST', body: body });
+    await DiscordRequest(endpoint, { method: 'POST', body: commands });
   } catch (err) {
     console.error(err);
   }

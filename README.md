@@ -1,1 +1,6 @@
-# discord_study_bot
+# discord_bot
+using 
+`
+$ npm install
+$ npm start
+`
